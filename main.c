@@ -16,6 +16,8 @@ struct Cliente clientes[MAX];
 
 void inserirCliente(int i)
 {
+    printf("\n\n=====================================\n|           Inserir Cliente         |  \n=====================================\n");
+    
     printf("Digite o nome do cliente: ");
     scanf("%s", clientes[i].nome);
     printf("Digite o telefone do cliente: ");
@@ -32,6 +34,8 @@ void inserirCliente(int i)
 
 void alterarDados(int i)
 {
+    printf("\n\n=====================================\n|           Alterar Cliente         |  \n=====================================\n");
+
     printf("Digite o nome do cliente: ");
     scanf("%s", clientes[i].nome);
     printf("Digite o telefone do cliente: ");
@@ -48,6 +52,7 @@ void alterarDados(int i)
 
 void excluirCliente(int i)
 {
+     printf("\n\n=====================================\n|           Excluir Cliente         |  \n=====================================\n");
     clientes[i].nome[0] = '\0';
     clientes[i].telefone = 0;
     clientes[i].nomedaempresa[0] = '\0';
@@ -75,6 +80,8 @@ void ordenarClientes()
 
 void listarClientes()
 {
+     printf("\n\n=====================================\n|        Listagem dos clientes     |  \n=====================================\n");
+
     ordenarClientes();
     for (int i = 0; i < MAX; i++)
     {
@@ -93,6 +100,8 @@ void listarClientes()
 
 void pesquisaNomeEmpresa(char nomeEmpresa[])
 {
+    printf("\n\n=====================================\n|   Pesquisar cliente por empresa   |  \n=====================================\n");
+
     for (int i = 0; i < MAX; i++)
     {
         if (clientes[i].nomedaempresa[0] != '\0' && strcmp(clientes[i].nomedaempresa, nomeEmpresa) == 0)
@@ -110,6 +119,8 @@ void pesquisaNomeEmpresa(char nomeEmpresa[])
 
 void pesquisaNomeCliente(char Nome[])
 {
+    printf("\n\n=====================================\n|     Pesquisar cliente por nome    |  \n=====================================\n");
+
     for (int i = 0; i < MAX; i++)
     {
         if (clientes[i].nome[0] != '\0' && strcmp(clientes[i].nome, Nome) == 0)
@@ -131,14 +142,7 @@ int main()
     char nomeEmpresa[50], Nome[50];
     do
     {
-        printf("1 - Inserir cliente\n");
-        printf("2 - Alterar dados do cliente\n");
-        printf("3 - Excluir cliente\n");
-        printf("4 - Listar clientes\n");
-        printf("5 - Pesquisar por nome da empresa\n");
-        printf("6 - Pesquisar por nome do cliente\n");
-        printf("0 - Sair\n");
-        printf("Digite a opcao desejada: ");
+        printf("\n=====================================\n|        CADASTRO DE CLIENTES       |\n=====================================\n| 1. Inserir cliente                |\n| 2. Alterar cliente                |\n| 3. Excluir cliente                |\n| 4. Listar clientes                |\n| 5. Pesquisar cliente por empresa  |\n| 6. Pesquisar cliente por nome     |\n=====================================\n         Escolha uma opcao: "); 
         scanf("%d", &opcao);
         switch (opcao)
         {
@@ -147,26 +151,18 @@ int main()
             i++;
             break;
         case 2:
-            printf("Digite o indice do cliente que deseja alterar: ");
-            scanf("%d", &i);
             alterarDados(i);
             break;
         case 3:
-            printf("Digite o indice do cliente que deseja excluir: ");
-            scanf("%d", &i);
             excluirCliente(i);
             break;
         case 4:
             listarClientes();
             break;
         case 5:
-            printf("Digite o nome da empresa que deseja pesquisar: ");
-            scanf("%s", nomeEmpresa);
             pesquisaNomeEmpresa(nomeEmpresa);
             break;
         case 6:
-            printf("Digite o nome do cliente que deseja pesquisar: ");
-            scanf("%s", Nome);
             pesquisaNomeCliente(Nome);
             break;
         }
