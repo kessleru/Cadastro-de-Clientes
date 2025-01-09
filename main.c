@@ -15,6 +15,12 @@ struct Cliente
 
 struct Cliente clientes[MAX];
 
+void pausarTela() {
+    printf("Pressione Enter para continuar...");
+    getchar(); // Captura o Enter que ficou no buffer
+    getchar(); // Espera o usuário pressionar Enter
+}
+
 int nomeExiste(char nome[])
 {
     for (int i = 0; i < MAX; i++)
@@ -58,29 +64,24 @@ void inserirCliente(int i)
     
     char nome[50], nomedaempresa[50], email[50];
     int telefone;
+
     printf("Digite o nome do cliente: ");
     scanf("%s", nome);
-
-    if (nomeExiste(nome))
+    while (nomeExiste(nome))
     {
         printf("Nome já existe!\n");
-        printf("Pressione Enter para voltar ao menu...");
-        getchar(); // Captura o Enter que ficou no buffer
-        getchar(); // Espera o usuário pressionar Enter
-        return;
+        printf("Digite um nome diferente: ");
+        scanf("%s", nome);
     }
     strcpy(clientes[i].nome, nome);
 
     printf("Digite o telefone do cliente: ");
     scanf("%d", &telefone);
-
-    if (telefoneExiste(telefone))
+    while (telefoneExiste(telefone))
     {
         printf("Telefone já existe!\n");
-        printf("Pressione Enter para voltar ao menu...");
-        getchar(); // Captura o Enter que ficou no buffer
-        getchar(); // Espera o usuário pressionar Enter
-        return;
+        printf("Digite um telefone diferente: ");
+        scanf("%d", &telefone);
     }
     clientes[i].telefone = telefone;
 
@@ -90,48 +91,51 @@ void inserirCliente(int i)
 
     printf("Digite o email do cliente: ");
     scanf("%s", email);
-    if (emailExiste(email))
+    while (emailExiste(email))
     {
         printf("Email já existe!\n");
-        printf("Pressione Enter para voltar ao menu...");
-        getchar(); // Captura o Enter que ficou no buffer
-        getchar(); // Espera o usuário pressionar Enter
-        return;
+        printf("Digite um email diferente: ");
+        scanf("%s", email);
     }
     strcpy(clientes[i].email, email);
 
     printf("Digite o dia do aniversario do cliente: ");
     scanf("%d", &clientes[i].diadeaniversario);
+    while (clientes[i].diadeaniversario < 1 || clientes[i].diadeaniversario > 31)
+    {
+        printf("Dia do aniversario invalido!\n");
+        printf("Digite um dia entre 1 e 31: ");
+        scanf("%d", &clientes[i].diadeaniversario); 
+    }
+
     printf("Digite o mes do aniversario do cliente: ");
     scanf("%d", &clientes[i].mesdeaniversario);
+    while (clientes[i].mesdeaniversario < 1 || clientes[i].mesdeaniversario > 12)
+    {
+        printf("Mes do aniversario invalido!\n");
+        printf("Digite um mes entre 1 e 12: ");
+        scanf("%d", &clientes[i].mesdeaniversario);
+    }
 
     printf("\nCliente inserido com sucesso!\n");
-    printf("Pressione Enter para voltar ao menu...");
-    getchar(); // Captura o Enter que ficou no buffer
-    getchar(); // Espera o usuário pressionar Enter
+    pausarTela();
 }
 
-void alterarDados(int i)
+void alterarDados()
 {
     system("cls");
+    char nome[50];
     printf("\n\n=====================================\n|           Alterar Cliente         |  \n=====================================\n");
-
     printf("Digite o nome do cliente: ");
-    scanf("%s", clientes[i].nome);
-    printf("Digite o telefone do cliente: ");
-    scanf("%d", &clientes[i].telefone);
-    printf("Digite o nome da empresa do cliente: ");
-    scanf("%s", clientes[i].nomedaempresa);
-    printf("Digite o email do cliente: ");
-    scanf("%s", clientes[i].email);
-    printf("Digite o dia do aniversario do cliente: ");
-    scanf("%d", &clientes[i].diadeaniversario);
-    printf("Digite o mes do aniversario do cliente: ");
-    scanf("%d", &clientes[i].mesdeaniversario);
+    scanf("%s", nome);
 
-    printf("Pressione Enter para voltar ao menu...");
-    getchar(); // Captura o Enter que ficou no buffer
-    getchar(); // Espera o usuário pressionar Enter
+    for (int i = 0; i < MAX; i++)
+    {
+        if (strcmp(clientes[i].nome, nome) == 0)
+        {
+            inserirCliente(i);
+        }
+    }
 }
 
 void excluirCliente()
@@ -156,7 +160,8 @@ void excluirCliente()
             return;
         }
     }
-    printf("Cliente não encontrado.\n");
+    printf("Cliente nao encontrado.\n");
+    pausarTela();
 }
 
 void ordenarClientes()
@@ -179,7 +184,7 @@ void ordenarClientes()
 void listarClientes()
 {
     system("cls");
-     printf("\n\n=====================================\n|        Listagem dos clientes     |  \n=====================================\n");
+     printf("\n\n=====================================\n|        Listagem dos clientes      |  \n=====================================\n");
 
     ordenarClientes();
     for (int i = 0; i < MAX; i++)
@@ -195,9 +200,7 @@ void listarClientes()
             printf("\n");
         }
     }
-    printf("Pressione Enter para voltar ao menu...");
-    getchar(); // Captura o Enter que ficou no buffer
-    getchar(); // Espera o usuário pressionar Enter
+    pausarTela();
 }
 
 void pesquisaNomeEmpresa()
@@ -222,9 +225,7 @@ void pesquisaNomeEmpresa()
             printf("\n");
         }
     }
-    printf("Pressione Enter para voltar ao menu...");
-    getchar(); // Captura o Enter que ficou no buffer
-    getchar(); // Espera o usuário pressionar Enter
+    pausarTela();
 }
 
 void pesquisaNomeCliente()
@@ -248,9 +249,7 @@ void pesquisaNomeCliente()
             printf("\n");
         }
     }
-    printf("Pressione Enter para voltar ao menu...");
-    getchar(); // Captura o Enter que ficou no buffer
-    getchar(); // Espera o usuário pressionar Enter
+    pausarTela();
 }
 
 void pesquisarCaractere()
@@ -276,20 +275,18 @@ void pesquisarCaractere()
             printf("\n");
         }
     }
-    printf("Pressione Enter para voltar ao menu...");
-    getchar(); // Captura o Enter que ficou no buffer
-    getchar(); // Espera o usuário pressionar Enter
+    pausarTela();
 }
 
 
 int main()
 {
+    
     int opcao, i = 0;
-    char nomeEmpresa[50], Nome[50];
     do
     {
         system("cls");
-        printf("\n=====================================\n|        CADASTRO DE CLIENTES       |\n=====================================\n| 1. Inserir cliente                |\n| 2. Alterar cliente                |\n| 3. Excluir cliente                |\n| 4. Listar clientes                |\n| 5. Pesquisar cliente por empresa  |\n| 6. Pesquisar cliente por nome     |\n| 7. Pesquisar por caractere        |\n=====================================\n       Escolha uma opcao: "); 
+        printf("\n=====================================\n|        CADASTRO DE CLIENTES       |\n=====================================\n| 1. Inserir cliente                |\n| 2. Alterar cliente                |\n| 3. Excluir cliente                |\n| 4. Listar clientes                |\n| 5. Pesquisar cliente por empresa  |\n| 6. Pesquisar cliente por nome     |\n| 7. Pesquisar por caractere        |\n|                                   |\n|       -> Digite uma opcao <-      |\n=====================================\n"); 
         scanf("%d", &opcao);
         switch (opcao)
         {
@@ -298,7 +295,7 @@ int main()
             i++;
             break;
         case 2:
-            alterarDados(i);
+            alterarDados();
             break;
         case 3:
             excluirCliente();
