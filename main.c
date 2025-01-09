@@ -15,25 +15,97 @@ struct Cliente
 
 struct Cliente clientes[MAX];
 
+int nomeExiste(char nome[])
+{
+    for (int i = 0; i < MAX; i++)
+    {
+        if (strcmp(clientes[i].nome, nome) == 0)
+        {
+            return 1; // Cliente já existe
+        }
+    }
+    return 0; // Cliente não existe
+}
+
+int telefoneExiste(int telefone)
+{
+    for (int i = 0; i < MAX; i++)
+    {
+        if (clientes[i].telefone == telefone)
+        {
+            return 1; // Telefone já existe
+        }
+    }
+    return 0; // Telefone não existe
+}
+
+int emailExiste(char email[])
+{
+    for (int i = 0; i < MAX; i++)
+    {
+        if (strcmp(clientes[i].email, email) == 0)
+        {
+            return 1; // Email já existe
+        }
+    }
+    return 0; // Email não existe
+}
+
 void inserirCliente(int i)
 {
     system("cls");
     printf("\n\n=====================================\n|           Inserir Cliente         |  \n=====================================\n");
     
+    char nome[50], nomedaempresa[50], email[50];
+    int telefone;
     printf("Digite o nome do cliente: ");
-    scanf("%s", clientes[i].nome);
+    scanf("%s", nome);
+
+    if (nomeExiste(nome))
+    {
+        printf("Nome já existe!\n");
+        printf("Pressione Enter para voltar ao menu...");
+        getchar(); // Captura o Enter que ficou no buffer
+        getchar(); // Espera o usuário pressionar Enter
+        return;
+    }
+    strcpy(clientes[i].nome, nome);
+
     printf("Digite o telefone do cliente: ");
-    scanf("%d", &clientes[i].telefone);
+    scanf("%d", &telefone);
+
+    if (telefoneExiste(telefone))
+    {
+        printf("Telefone já existe!\n");
+        printf("Pressione Enter para voltar ao menu...");
+        getchar(); // Captura o Enter que ficou no buffer
+        getchar(); // Espera o usuário pressionar Enter
+        return;
+    }
+    clientes[i].telefone = telefone;
+
     printf("Digite o nome da empresa do cliente: ");
-    scanf("%s", clientes[i].nomedaempresa);
+    scanf("%s", nomedaempresa);
+    strcpy(clientes[i].nomedaempresa, nomedaempresa);
+
     printf("Digite o email do cliente: ");
-    scanf("%s", clientes[i].email);
+    scanf("%s", email);
+    if (emailExiste(email))
+    {
+        printf("Email já existe!\n");
+        printf("Pressione Enter para voltar ao menu...");
+        getchar(); // Captura o Enter que ficou no buffer
+        getchar(); // Espera o usuário pressionar Enter
+        return;
+    }
+    strcpy(clientes[i].email, email);
+
     printf("Digite o dia do aniversario do cliente: ");
     scanf("%d", &clientes[i].diadeaniversario);
     printf("Digite o mes do aniversario do cliente: ");
     scanf("%d", &clientes[i].mesdeaniversario);
 
-    printf("\n");
+    printf("\nCliente inserido com sucesso!\n");
     printf("Pressione Enter para voltar ao menu...");
     getchar(); // Captura o Enter que ficou no buffer
     getchar(); // Espera o usuário pressionar Enter
@@ -62,15 +134,29 @@ void alterarDados(int i)
     getchar(); // Espera o usuário pressionar Enter
 }
 
-void excluirCliente(int i)
+void excluirCliente()
 {
-     printf("\n\n=====================================\n|           Excluir Cliente         |  \n=====================================\n");
-    clientes[i].nome[0] = '\0';
-    clientes[i].telefone = 0;
-    clientes[i].nomedaempresa[0] = '\0';
-    clientes[i].email[0] = '\0';
-    clientes[i].diadeaniversario = 0;
-    clientes[i].mesdeaniversario = 0;
+    char nome[50];
+    system("cls");
+    printf("\n\n=====================================\n|           Excluir Cliente         |  \n=====================================\n");
+    printf("Digite o nome do cliente: ");
+    scanf("%s", nome);
+    for (int j = 0; j < MAX; j++)
+    {
+        if (strcmp(clientes[j].nome, nome) == 0)
+        {
+            printf("Excluindo cliente: %s\n", clientes[j].nome);
+            clientes[j].nome[0] = '\0';
+            clientes[j].telefone = 0;
+            clientes[j].nomedaempresa[0] = '\0';
+            clientes[j].email[0] = '\0';
+            clientes[j].diadeaniversario = 0;
+            clientes[j].mesdeaniversario = 0;
+            printf("Cliente excluído com sucesso.\n");
+            return;
+        }
+    }
+    printf("Cliente não encontrado.\n");
 }
 
 void ordenarClientes()
@@ -114,10 +200,14 @@ void listarClientes()
     getchar(); // Espera o usuário pressionar Enter
 }
 
-void pesquisaNomeEmpresa(char nomeEmpresa[])
+void pesquisaNomeEmpresa()
 {
     system("cls");
+    char nomeEmpresa[50];
     printf("\n\n=====================================\n|   Pesquisar cliente por empresa   |  \n=====================================\n");
+
+    printf("Digite o nome da empresa: ");
+    scanf("%s", nomeEmpresa);
 
     for (int i = 0; i < MAX; i++)
     {
@@ -137,10 +227,13 @@ void pesquisaNomeEmpresa(char nomeEmpresa[])
     getchar(); // Espera o usuário pressionar Enter
 }
 
-void pesquisaNomeCliente(char Nome[])
+void pesquisaNomeCliente()
 {
     system("cls");
+    char Nome[50];
     printf("\n\n=====================================\n|     Pesquisar cliente por nome    |  \n=====================================\n");
+    printf("Digite o nome do cliente: ");
+    scanf("%s", Nome);
 
     for (int i = 0; i < MAX; i++)
     {
@@ -208,16 +301,16 @@ int main()
             alterarDados(i);
             break;
         case 3:
-            excluirCliente(i);
+            excluirCliente();
             break;
         case 4:
             listarClientes();
             break;
         case 5:
-            pesquisaNomeEmpresa(nomeEmpresa);
+            pesquisaNomeEmpresa();
             break;
         case 6:
-            pesquisaNomeCliente(Nome);
+            pesquisaNomeCliente();
             break;
         
         case 7:
