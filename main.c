@@ -118,7 +118,6 @@ void inserirCliente(int i)
     }
 
     printf("\nCliente inserido com sucesso!\n");
-    pausarTela();
 }
 
 void alterarDados()
@@ -136,6 +135,7 @@ void alterarDados()
             inserirCliente(i);
         }
     }
+    pausarTela();
 }
 
 void excluirCliente()
@@ -157,6 +157,7 @@ void excluirCliente()
             clientes[j].diadeaniversario = 0;
             clientes[j].mesdeaniversario = 0;
             printf("Cliente excluído com sucesso.\n");
+            pausarTela();
             return;
         }
     }
@@ -293,6 +294,7 @@ int main()
         case 1:
             inserirCliente(i);
             i++;
+            pausarTela();
             break;
         case 2:
             alterarDados();
