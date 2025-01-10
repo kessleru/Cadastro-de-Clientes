@@ -6,63 +6,78 @@
 // Definição da estrutura Cliente
 struct Cliente
 {
-    char nome[50];             // Nome do cliente
-    char telefone[30];              // Telefone do cliente
-    char nomedaempresa[50];    // Nome da empresa associada ao cliente
-    char email[50];            // Email do cliente
-    int diadeaniversario;      // Dia do aniversário
-    int mesdeaniversario;      // Mês do aniversário
+    char nome[50];             
+    char telefone[30];              
+    char nomedaempresa[50];    
+    char email[50];            
+    int diadeaniversario;     
+    int mesdeaniversario;      
 };
 
 struct Cliente clientes[MAX]; // Array para armazenar os clientes, com limite de MAX clientes
 
-// Função para pausar a tela, aguardando o pressionamento de Enter
+// Funcao: pausarTela
+// Descricao: Procedimento para pausar a tela e aguardar o usuário pressionar Enter
+// Parametros: nenhum
+//Retorno: nenhum
 void pausarTela() {
     printf("Pressione Enter para continuar...");
     getchar();  // Captura o Enter que ficou no buffer
     getchar();  // Espera o usuário pressionar Enter
 }
 
-// Função que verifica se o nome já existe no array de clientes
+// Funcao: nomeExiste
+// Descricao: Verifica se o nome já existe
+// Parametros: char nome[] - nome a ser verificado
+//Retorno: 1 se o nome já existe, 0 caso contrário
 int nomeExiste(char nome[])
 {
     for (int i = 0; i < MAX; i++)
     {
-        if (strcmp(clientes[i].nome, nome) == 0)  // Comparando nomes
+        if (strcmp(clientes[i].nome, nome) == 0) 
         {
-            return 1;  // Nome já existe
+            return 1; 
         }
     }
-    return 0;  // Nome não existe
+    return 0;  
 }
 
-// Função que verifica se o telefone já existe
+// Funcao: telefoneExiste
+// Descricao: Verifica se o telefone já existe
+// Parametros: char telefone[] - telefone a ser verificado
+//Retorno: 1 se o telefone já existe, 0 caso contrário
 int telefoneExiste(char telefone[])
 {
     for (int i = 0; i < MAX; i++)
     {
-        if (clientes[i].telefone == telefone)  // Comparando telefones
+        if (clientes[i].telefone == telefone) 
         {
-            return 1;  // Telefone já existe
+            return 1;  
         }
     }
-    return 0;  // Telefone não existe
+    return 0;  
 }
 
-// Função que verifica se o email já existe
+// Funcao: emailExiste
+// Descricao: Verifica se o email já existe
+// Parametros: char email[] - email a ser verificado
+//Retorno: 1 se o email já existe, 0 caso contrário
 int emailExiste(char email[])
 {
     for (int i = 0; i < MAX; i++)
     {
-        if (strcmp(clientes[i].email, email) == 0)  // Comparando emails
+        if (strcmp(clientes[i].email, email) == 0)  
         {
-            return 1;  // Email já existe
+            return 1;  
         }
     }
-    return 0;  // Email não existe
+    return 0; 
 }
 
-// Função que insere um novo cliente, realizando validações
+// Funcao: inserirCliente
+// Descricao: Procedimento para inserir um cliente na lista
+// Parametros: int i - índice do cliente
+//Retorno: nenhum
 void inserirCliente(int i)
 {
     system("cls");  // Limpa a tela
@@ -132,7 +147,10 @@ void inserirCliente(int i)
     printf("\nCliente inserido com sucesso!\n");
 }
 
-// Função que altera os dados de um cliente, utilizando a função de inserção
+// Funcao: alterarDados
+// Descricao: Procedimento para alterar os dados de um cliente
+// Parametros: nenhum
+//Retorno: nenhum
 void alterarDados()
 {
     system("cls");  // Limpa a tela
@@ -144,7 +162,7 @@ void alterarDados()
     // Busca o cliente pelo nome
     for (int i = 0; i < MAX; i++)
     {
-        if (strcmp(clientes[i].nome, nome) == 0)  // Se encontrar o cliente, chama a função de inserção
+        if (strcmp(clientes[i].nome, nome) == 0) 
         {
             inserirCliente(i);
         }
@@ -152,11 +170,14 @@ void alterarDados()
     pausarTela();
 }
 
-// Função para excluir um cliente pelo nome
+// Funcao: excluirCliente
+// Descricao: Procedimento para excluir um cliente da lista
+// Parametros: nenhum
+//Retorno: nenhum
 void excluirCliente()
 {
     char nome[50];
-    system("cls");  // Limpa a tela
+    system("cls");
     printf("\n\n=====================================\n|           Excluir Cliente         |  \n=====================================\n");
     printf("Digite o nome do cliente: ");
     scanf("%s", nome);
@@ -182,7 +203,10 @@ void excluirCliente()
     pausarTela();
 }
 
-// Função para ordenar os clientes por nome
+// Funcao: ordenarClientes
+// Descricao: Procedimento para ordenar os clientes por nome
+// Parametros: nenhum
+//Retorno: nenhum
 void ordenarClientes()
 {
     struct Cliente temp;
@@ -201,10 +225,13 @@ void ordenarClientes()
     }
 }
 
-// Função que lista todos os clientes cadastrados
+// Funcao: listarClientes
+// Descricao: Lista todos os clientes cadastrados
+// Parametros: nenhum
+//Retorno: nenhum
 void listarClientes()
 {
-    system("cls");  // Limpa a tela
+    system("cls");
     printf("\n\n=====================================\n|        Listagem dos clientes      |  \n=====================================\n");
 
     ordenarClientes();  // Ordena os clientes por nome
@@ -224,7 +251,10 @@ void listarClientes()
     pausarTela();
 }
 
-// Função que pesquisa clientes por nome da empresa
+// Funcao: pesquisaNomeEmpresa
+// Descricao: Pesquisa por clientes cuja empresa é exatamente igual à indicada
+// Parametros: nenhum
+//Retorno: nenhum
 void pesquisaNomeEmpresa()
 {
     system("cls");
@@ -251,7 +281,10 @@ void pesquisaNomeEmpresa()
     pausarTela();
 }
 
-// Função que pesquisa clientes por nome
+// Funcao: pesquisaNomeCliente
+// Descricao: Pesquisa por clientes cujo nome é exatamente igual ao indicado
+// Parametros: nenhum
+//Retorno: nenhum
 void pesquisaNomeCliente()
 {
     system("cls");
@@ -277,7 +310,10 @@ void pesquisaNomeCliente()
     pausarTela();
 }
 
-// Função que pesquisa clientes por caractere inicial do nome
+// Funcao: pesquisarCaractere
+// Descricao: Pesquisa por clientes cujo nome começa com o caractere indicado
+// Parametros: nenhum
+// Retorno: nenhum
 void pesquisarCaractere()
 {
     char c;
@@ -302,7 +338,7 @@ void pesquisarCaractere()
         }
     }
     pausarTela();
-}
+}   
 
 // Função principal, com o menu de opções
 int main()
@@ -310,7 +346,7 @@ int main()
     int opcao, i = 0;
     do
     {
-        system("cls");  // Limpa a tela
+        system("cls");
         printf("\n=====================================\n|        CADASTRO DE CLIENTES       |\n=====================================\n| 1. Inserir cliente                |\n| 2. Alterar cliente                |\n| 3. Excluir cliente                |\n| 4. Listar clientes                |\n| 5. Pesquisar cliente por empresa  |\n| 6. Pesquisar cliente por nome     |\n| 7. Pesquisar por caractere        |\n|                                   |\n|       -> Digite uma opcao <-      |\n=====================================\n"); 
         scanf("%d", &opcao);  // Lê a opção escolhida pelo usuário
         switch (opcao)
