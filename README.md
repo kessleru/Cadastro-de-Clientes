@@ -127,16 +127,7 @@ make
 - **Otimização de Memória**: Uso eficiente de estruturas
 - **Modularização**: Funções bem definidas e reutilizáveis
 
-## 📈 Possíveis Melhorias
 
-- [ ] Persistência em arquivo (salvar/carregar dados)
-- [ ] Interface gráfica (GTK ou similar)
-- [ ] Sistema de backup automático
-- [ ] Relatórios em PDF
-- [ ] Integração com banco de dados
-- [ ] Sistema de permissões de usuário
-- [ ] Exportação para CSV/Excel
-- [ ] Histórico de alterações
 
 ## 🎓 Conceitos Aprendidos
 
